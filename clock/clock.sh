@@ -37,7 +37,7 @@ if [[ $1 ]]; then
 		    echo "clockin [hh:mm]|[+|- mm] - clock in at specified OR current time +/- x min"
 		    echo "clockout [hh:mm]|[+|- mm] - clock out at specified OR current time +/- x min"
 		    echo "clock - show clock status"
-			echo "clockopen - open clock.txt file"
+			echo "clockopen - open clock.log file"
 			echo ""
 			echo "clockin          # example 1: clock in at current time"
 			echo "clockin 08:30    # example 2: clock in at 08:30"
@@ -53,7 +53,7 @@ if [[ $1 ]]; then
 	# If clocking "in"
 	if [[ "$1" == "in" ]]; then
     	echo "#clockin $clocker"
-    	echo "#clockin $clocker" >> "$SCRIPT_DIR/clock.txt"
+    	echo "#clockin $clocker" >> "$SCRIPT_DIR/clock.log"
 		
 	# If clocking "out"
 	elif [[ "$1" == "out" ]]; then
@@ -62,7 +62,7 @@ if [[ $1 ]]; then
 	    
 		### Calculate working hours between clock events
 		
-	    last=$(tail -n 1 "$SCRIPT_DIR/clock.txt" | xargs)
+	    last=$(tail -n 1 "$SCRIPT_DIR/clock.log" | xargs)
 			
 			# Confirming a preceding clock "in" event
 	    if [[ "$last" == *"in"* ]]; then
@@ -73,7 +73,7 @@ if [[ $1 ]]; then
 	        workminutes=$(( (clockouttime - lastclockintime) / 60 ))  # convert seconds to minutes
 	    else
 	        echo "warning: no prior clock-in"
-			echo "clock-in missing" >> "$SCRIPT_DIR/clock.txt"
+			echo "clock-in missing" >> "$SCRIPT_DIR/clock.log"
 			workminutes=0
 	    fi
 	
@@ -84,11 +84,11 @@ if [[ $1 ]]; then
 		###
 
 	    echo "#clockout $clocker (hours worked: $workingtime)"
-	    echo "#clockout $clocker (hours worked: $workingtime)" >> "$SCRIPT_DIR/clock.txt"
+	    echo "#clockout $clocker (hours worked: $workingtime)" >> "$SCRIPT_DIR/clock.log"
 	
 	# If simply opening time tracking .txt file
 	elif [[ "$1" == "open" ]]; then
-		open "$SCRIPT_DIR/clock.txt"
+		open "$SCRIPT_DIR/clock.log"
 		
 	else
         echo "### invalid parameters ###"
@@ -96,7 +96,7 @@ if [[ $1 ]]; then
 	    echo "clockin [hh:mm]|[+|- mm] - clock in at specified OR current time +/- x min"
 	    echo "clockout [hh:mm]|[+|- mm] - clock out at specified OR current time +/- x min"
 	    echo "clock - show clock status"
-		echo "clockopen - open clock.txt file"
+		echo "clockopen - open clock.log file"
 		echo ""
 		echo "clockin          # example 1: clock in at current time"
 		echo "clockin 08:30    # example 2: clock in at 08:30"
@@ -109,17 +109,17 @@ if [[ $1 ]]; then
 elif [[ -z "$1" ]]; then
 	echo ""
         echo "### recent entries: ###"
-        echo "$(tail -n 6 $SCRIPT_DIR/clock.txt)"
+        echo "$(tail -n 6 $SCRIPT_DIR/clock.log)"
 	echo ""
 
     	echo "#### clock status ####"
 	
-	last=$(tail -n 1 "$SCRIPT_DIR/clock.txt")
+	last=$(tail -n 1 "$SCRIPT_DIR/clock.log")
 	
     	if [[ $last == *"in"* ]]; then
 		# currently clocked in
 		# figure out working hours in current clockin event
-		last=$(tail -n 1 "$SCRIPT_DIR/clock.txt" | xargs)
+		last=$(tail -n 1 "$SCRIPT_DIR/clock.log" | xargs)
 		lastclockin="${last#*#clockin }"
         	lastclockin="${lastclockin//\[\] /}"
         	lastclockintime=$(date -j -f "%Y-%m-%d %H:%M:%S" "$lastclockin" +"%s")
@@ -135,7 +135,7 @@ elif [[ -z "$1" ]]; then
         	# currently clocked out
 		echo "currently clocked out"
     	else
-        	echo "no clock status available - check clock.txt for syntax errors"
+        	echo "no clock status available - check clock.log for syntax errors"
     	fi
 	
     	echo ""
@@ -143,7 +143,7 @@ elif [[ -z "$1" ]]; then
     	echo "clockin [hh:mm]|[+|- mm] - clock in at specified OR current time +/- x min"
     	echo "clockout [hh:mm]|[+|- mm] - clock out at specified OR current time +/- x min"
     	echo "clock - show clock status"
-	echo "clockopen - open clock.txt file"
+	echo "clockopen - open clock.log file"
 	echo ""
 	echo "clockin          # example 1: clock in at current time"
 	echo "clockin 08:30    # example 2: clock in at 08:30"
