@@ -15,5 +15,3 @@ cd <path_to_script> && ./internetspeedmon.sh
 50 7-9,16-23 * * * cd <path_to_script> && ./internetspeedmon.sh
 ```
 3. A log folder will be created within the same directory, in which a daily log file will display average and momentary speeds across all WiFi networks that were connected to
-
-# ---------------------------------------------- #
