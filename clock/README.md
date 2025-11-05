@@ -1,7 +1,7 @@
 # clock.sh
 A simple CLI tool for tracking working hours - punch in and out quickly via terminal window and keep record
 
-# Installation:
+**Installation:**
 1. Place script in desired directory
 2. Add the following to your ~/.bashrc (or e.g. ~/.zshrc if using other shells):
 ```
@@ -11,7 +11,7 @@ alias clock='function _clock() { [PATH_TO_SCRIPT]/clock.sh }; _clock'
 alias clockopen='function _clockopen() { [PATH_TO_SCRIPT]/clock.sh open; }; _clockopen'
 ```
 
-# Usage:
+**Usage:**
 ```
 clockin [hh:mm]|[+|- mm] - clock in at specified OR current time +/- x min
 clockout [hh:mm]|[+|- mm] - clock out at specified OR current time +/- x min
