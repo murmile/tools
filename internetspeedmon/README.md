@@ -1,8 +1,11 @@
-# ---------------- REQUIREMENTS ---------------- #
+# internetspeedmon.sh
+Run Internet speedtests on a regular basis using the speedtest-cli tool and crontab - it keeps records and calculates average connection speeds per WiFi SSID as well as individual test results
+
+**Requirements:**
 1. speedtest-cli (available via Homebrew)
 2. zshell
 
-# -------------------- USAGE ------------------- #
+**Usage:**
 1. Place script in desired directory
 2. Run script
 ```
