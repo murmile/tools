@@ -132,12 +132,23 @@ elif [[ -z "$1" ]]; then
 		lastclockin="${last#*#clockin }"
         	lastclockin="${lastclockin//\[\] /}"
         	lastclockintime=$(date -j -f "%Y-%m-%d %H:%M:%S" "$lastclockin" +"%s")
+		lastclockinday=$(date -j -f "%Y-%m-%d %H:%M:%S" "$lastclockin" +"%Y-%m-%d")
 		currenttime=$(date +%s)
 		workminutes=$(( (currenttime - lastclockintime) / 60 ))  # convert seconds to minutes
 		hours=$(( workminutes / 60 ))
         	minutes=$(( workminutes % 60 ))
         	workingtime=$(printf "%d:%02d" "$hours" "$minutes")
-		echo "currently clocked in (working time: $workingtime)"
+		if [[ $lastclockinday < $(date +"%Y-%m-%d") ]]; then
+			read -p "The clockout event of a previous day is missing - enter retrospectively [hh:mm]: " lastclockout
+			echo "#clockout $lastclockinday $lastclockout:00 (entered in retrospective)" >> "$SCRIPT_DIR/clock.log"
+			echo "Clockout for $lastclockinday added..."
+			sleep 1
+			$SCRIPT_DIR/clock.sh
+			exit 1
+		else
+			echo "currently clocked in (working time: $workingtime)"
+		fi
+
 
     	elif [[ $last == *"out"* ]]; then
         	# currently clocked out
