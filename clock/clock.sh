@@ -6,11 +6,11 @@
 
 ### REQUIREMENTS ####
 # Config for Bash environment:
-# alias clockin='function _clockin() { [PATH_TO_SCRIPT]/clock.sh in "$@"; }; _clockin'
-# alias clockout='function _clockout() { [PATH_TO_SCRIPT]/clock.sh out "$@"; }; _clockout'
+# alias clockin='function _clockin() { [PATH_TO_SCRIPT]/clock.sh in "$@"; cp [PATH_TO_SCRIPT]/clock.log [OPTIONAL_BACKUP_LOCATION]/clock.log }; _clockin'
+# alias clockout='function _clockout() { [PATH_TO_SCRIPT]/clock.sh out "$@"; cp [PATH_TO_SCRIPT]/clock.log [OPTIONAL_BACKUP_LOCATION]/clock.log }; _clockout'
 # alias clock='function _clock() { [PATH_TO_SCRIPT]/clock.sh }; _clock'
 # alias clockopen='function _clockopen() { [PATH_TO_SCRIPT]/clock.sh open; }; _clockopen'
-# alias clockedit='function _clockedit() { [PATH_TO_SCRIPT]/clock.sh edit; }; _clockedit'
+# alias clockedit='function _clockedit() { [PATH_TO_SCRIPT]/clock.sh edit; cp [PATH_TO_SCRIPT]/clock.log [OPTIONAL_BACKUP_LOCATION]/clock.log }; _clockedit'
 
 shopt -s extglob  # Enable extended globbing
 
